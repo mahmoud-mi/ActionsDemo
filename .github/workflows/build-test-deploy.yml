@@ -11,5 +11,17 @@ jobs:
       - name: Check out 
         uses: actions/checkout@v4
 
-      - name: Print message
-        run: echo "Will Do It"
+      - name: Buid 
+        run: echo "Build"
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out 
+        uses: actions/checkout@v4
+
+      - name: unit test
+        run: echo "unit test"  
+        
+      - name: integration test
+        run: echo "integration test"  
