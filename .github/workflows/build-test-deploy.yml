@@ -11,11 +11,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: use node.js
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x
+          node-version: '20.x'
+
       - run: npm install
+
       - run: npm run build
 
   test:
@@ -23,7 +25,7 @@ jobs:
     needs: build
 
     steps:
-      - name: Check out
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Unit test
@@ -37,7 +39,7 @@ jobs:
     needs: test
 
     steps:
-      - name: Check out
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Deploy
