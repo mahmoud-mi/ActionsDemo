@@ -16,9 +16,11 @@ jobs:
         with:
           node-version: '20.x'
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm install
 
-      - run: npm run build
+      - name: Build
+        run: npm run build
 
   test:
     runs-on: ubuntu-latest
@@ -33,17 +35,52 @@ jobs:
         with:
           node-version: '20.x'
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm install
 
-      - run: npm run test
+      - name: Test
+        run: npm run test
 
   deploy:
     runs-on: ubuntu-latest
     needs: test
 
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    environment:
+      name: production
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+        with:
+          static_site_generator: next
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './out'
 
       - name: Deploy
-        run: echo "Deploy"
+        id: deployment
+        uses: actions/deploy-pages@v4
