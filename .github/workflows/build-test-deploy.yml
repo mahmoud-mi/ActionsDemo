@@ -8,21 +8,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out 
+      - name: Check out
         uses: actions/checkout@v4
 
-      - name: Buid 
+      - name: Build
         run: echo "Build"
+
   test:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - name: Check out 
+      - name: Check out
         uses: actions/checkout@v4
 
-      - name: unit test
-        run: echo "unit test"  
-        
-      - name: integration test
-        run: echo "integration test"  
+      - name: Unit test
+        run: echo "unit test"
+
+      - name: Integration test
+        run: echo "integration test"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: echo "Deploy"
