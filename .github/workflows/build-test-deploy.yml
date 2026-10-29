@@ -28,11 +28,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Unit test
-        run: echo "unit test"
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
 
-      - name: Integration test
-        run: echo "integration test"
+      - run: npm install
+
+      - run: npm run test
 
   deploy:
     runs-on: ubuntu-latest
